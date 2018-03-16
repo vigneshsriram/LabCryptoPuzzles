@@ -6,6 +6,13 @@ const testnet = bitcoin.networks.testnet
 
 // FIRST challenge
 // Generated from bip39
+//1 create your own seed value
+/*
+Using that seed, through code:
+• Create a testnet bitcoin address
+• Create an ethereum address
+• Create a testnet dash address
+*/
 const mnemonic = new Mnemonic('wash indoor drip legend roof noodle unable item sausage equal nurse wood');
 const seed = bip39.mnemonicToSeedHex(mnemonic)
 const xpriv ='tprv8ZgxMBicQKsPfPBSN58S9sLnLsGJFSPChTmwcdLQwW2oKj4WSFiNULdeuE2wrf7hEwP7nRFytjm2DhyfVuQVas22SibmQzhfJbE8r3DecdE';
@@ -25,10 +32,24 @@ const main = async () => {
     try {
 
         // SECOND challenge
+        /* Fund your BTC address and confirm balance
+           through a Remote Procedure Call 
+        */
         const balance = await ecl.blockchainAddress_getBalance(child1.getAddress())
         console.log('balance', balance)
+        
 
         // THIRD challenge
+        /*Generating a Transaction
+        1. Use your access to the Electrum X server to locate
+        the UTXOs from the faucet to your address
+        2. Create a transaction that sends the faucet funds to
+        a new address
+        3. Sign the transaction with the private key from your
+        Multi-currency HD Wallet (first step)
+        4. Broadcast the transaction to the Bitcoin testnet
+        network
+        */
         // blockchainAddress_listunspent
         const list = await ecl.blockchainAddress_listunspent(child1.getAddress())
         const tx_hash = list[0].tx_hash;
